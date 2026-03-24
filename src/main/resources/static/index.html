@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BiblioTech - Modern Library Management</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <!-- Notification Toast -->
+    <div id="toast" class="toast hidden">
+        <span id="toast-icon"><i class="fas fa-info-circle"></i></span>
+        <span id="toast-message">Notification</span>
+    </div>
+
+    <!-- Auth View -->
+    <div id="auth-view" class="view active">
+        <div class="auth-container">
+            <div class="auth-card">
+                <div class="auth-header">
+                    <i class="fas fa-book-reader auth-logo"></i>
+                    <h2>Welcome to BiblioTech</h2>
+                    <p>Enter your details to proceed.</p>
+                </div>
+                
+                <form id="auth-form">
+                    <div class="input-group">
+                        <label for="username">Username</label>
+                        <div class="input-wrapper">
+                            <i class="fas fa-user"></i>
+                            <input type="text" id="username" placeholder="Enter username" required>
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <label for="password">Password</label>
+                        <div class="input-wrapper">
+                            <i class="fas fa-lock"></i>
+                            <input type="password" id="password" placeholder="Enter password" required>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block" id="auth-submit">Login</button>
+                    
+                    <div class="auth-toggle">
+                        <span id="auth-mode-text">Don't have an account?</span>
+                        <a href="#" id="toggle-auth-mode">Register now</a>
+                    </div>
+                </form>
+            </div>
+            <div class="auth-illustration">
+                <!-- Abstract blobs and shapes -->
+                <div class="blob shape-1"></div>
+                <div class="blob shape-2"></div>
+                <div class="glass-orb"></div>
+                <h2>Explore the world of knowledge.</h2>
+                <p>Manage, borrow, and read your favorite books in seamlessly beautiful ways.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main App View -->
+    <div id="app-view" class="view hidden">
+        <Sidebar class="sidebar">
+            <div class="sidebar-header">
+                <i class="fas fa-book-reader"></i>
+                <h2>BiblioTech</h2>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="#" class="nav-item active" data-target="dashboard-section"><i class="fas fa-home"></i> Dashboard</a>
+                <a href="#" class="nav-item" data-target="my-books-section"><i class="fas fa-bookmark"></i> My Borrowings</a>
+                <a href="#" class="nav-item admin-only" data-target="manage-books-section" style="display: none;"><i class="fas fa-cog"></i> Manage Books</a>
+            </nav>
+            <div class="sidebar-footer">
+                <div class="user-profile">
+                    <div class="avatar"><i class="fas fa-user-circle"></i></div>
+                    <div class="user-info">
+                        <span id="current-username">User</span>
+                        <span id="current-role" class="role-badge">ROLE</span>
+                    </div>
+                </div>
+                <button id="logout-btn" class="btn btn-icon btn-logout"><i class="fas fa-sign-out-alt"></i></button>
+            </div>
+        </Sidebar>
+
+        <main class="main-content">
+            <header class="topbar">
+                <div class="search-bar">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="book-search" placeholder="Search for books, authors...">
+                </div>
+                <!-- Light/Dark Theme Toggle (optional) -->
+            </header>
+
+            <div class="content-area">
+                
+                <!-- Dashboard Section -->
+                <section id="dashboard-section" class="content-section active">
+                    <div class="section-header">
+                        <div>
+                            <h1>Library Catalog</h1>
+                            <p>Discover available books to borrow</p>
+                        </div>
+                    </div>
+                    <div class="books-grid" id="books-grid">
+                        <!-- Books dynamically injected here -->
+                        <div class="loader"><i class="fas fa-spinner fa-spin"></i> Loading books...</div>
+                    </div>
+                </section>
+
+                <!-- My Borrowings Section -->
+                <section id="my-books-section" class="content-section hidden">
+                    <div class="section-header">
+                        <div>
+                            <h1>My Borrowings</h1>
+                            <p>Books you currently have</p>
+                        </div>
+                    </div>
+                    <div class="borrowings-list" id="borrowings-list">
+                        <div class="loader"><i class="fas fa-spinner fa-spin"></i> Loading borrowings...</div>
+                    </div>
+                </section>
+
+                <!-- Manage Books Section (Admin) -->
+                <section id="manage-books-section" class="content-section hidden">
+                    <div class="section-header">
+                        <div>
+                            <h1>Manage Books</h1>
+                            <p>Add new books to the library</p>
+                        </div>
+                    </div>
+                    <div class="admin-card">
+                        <h3>Add New Book</h3>
+                        <form id="add-book-form">
+                            <div class="form-row">
+                                <div class="input-group">
+                                    <label>Title</label>
+                                    <input type="text" id="new-book-title" required>
+                                </div>
+                                <div class="input-group">
+                                    <label>ISBN</label>
+                                    <input type="text" id="new-book-isbn" required>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="input-group">
+                                    <label>Author ID</label>
+                                    <input type="number" id="new-book-author" required>
+                                </div>
+                                <div class="input-group">
+                                    <label>Stock</label>
+                                    <input type="number" id="new-book-stock" min="1" required>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Add Book</button>
+                        </form>
+                    </div>
+                </section>
+
+            </div>
+        </main>
+    </div>
+
+    <!-- Modals -->
+    <div class="modal-overlay" id="modal-overlay"></div>
+    <div class="modal" id="book-modal">
+        <div class="modal-header">
+            <h3 id="modal-title">Book Details</h3>
+            <button class="btn-icon modal-close"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="modal-body">
+            <div class="book-detail-card">
+                <div class="book-cover-placeholder large">
+                    <i class="fas fa-book"></i>
+                </div>
+                <div class="book-info-detailed">
+                    <h2 id="detail-title">Title</h2>
+                    <p class="author" id="detail-author">Author</p>
+                    <p class="isbn" id="detail-isbn">ISBN: </p>
+                    <div class="stock-badge" id="detail-stock">Stock: </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-outline modal-close">Cancel</button>
+            <button class="btn btn-primary" id="btn-borrow">Borrow Book</button>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

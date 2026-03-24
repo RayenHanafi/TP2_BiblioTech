@@ -3,10 +3,9 @@ package com.bibliotech.dto;
 import lombok.*;
 
 @Getter @Setter @NoArgsConstructor @AllArgsConstructor @Builder
-public class AuthResponseDTO {
+public class AuthorResponseDTO {
 
     private Long id;
-    private String token;
-    private String username;
-    private String role;
+    private String name;
+    private String biography;
 }

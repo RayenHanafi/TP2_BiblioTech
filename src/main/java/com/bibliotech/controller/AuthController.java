@@ -45,6 +45,7 @@ public class AuthController {
         String token = jwtService.generateToken(userDetails);
 
         return ResponseEntity.ok(AuthResponseDTO.builder()
+                .id(user.getId())
                 .token(token)
                 .username(user.getUsername())
                 .role(user.getRole().name())
@@ -65,6 +66,7 @@ public class AuthController {
         User user = userRepository.findByUsername(request.getUsername()).orElseThrow();
 
         return ResponseEntity.ok(AuthResponseDTO.builder()
+                .id(user.getId())
                 .token(token)
                 .username(user.getUsername())
                 .role(user.getRole().name())

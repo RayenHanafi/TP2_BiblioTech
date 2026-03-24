@@ -1,4 +1,4 @@
-package com.bibliotech.repository;
+package com.bibliotech.reactive.repository;
 
 import com.bibliotech.document.BookDocument;
 import org.springframework.data.mongodb.repository.ReactiveMongoRepository;

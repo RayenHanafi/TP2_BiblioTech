@@ -1,7 +1,7 @@
-package com.bibliotech.controller;
+package com.bibliotech.reactive.controller;
 
 import com.bibliotech.document.BookDocument;
-import com.bibliotech.repository.ReactiveBookRepository;
+import com.bibliotech.reactive.repository.ReactiveBookRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
